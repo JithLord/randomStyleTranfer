@@ -9,6 +9,6 @@ Perform style tranfer on random images
 ```
 
 ## Need to add these functionalities
-- [ ] Needs to download Image contentImage.jpg and styleImage.jpg
+- [ ] Needs to download Images contentImage.jpg and styleImage.jpg
 - [x] Added functionalities to download Image from DuckDuckGo based on your search
-- [ ]  
+- [ ] Add functionality either to download random images or image based on keyword

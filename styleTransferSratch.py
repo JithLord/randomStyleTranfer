@@ -2,21 +2,17 @@ import tensorflow as tf
 import tensorflow_hub as hub
 import os
 import tensorflow as tf
-# Load compressed models from tensorflow_hub
-os.environ['TFHUB_MODEL_LOAD_FORMAT'] = 'COMPRESSED'
-
 import IPython.display as display
-
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-mpl.rcParams['figure.figsize'] = (12, 12)
-mpl.rcParams['axes.grid'] = False
-
 import numpy as np
 import PIL.Image
 import time
 import functools
 
+os.environ['TFHUB_MODEL_LOAD_FORMAT'] = 'COMPRESSED'
+mpl.rcParams['figure.figsize'] = (12, 12)
+mpl.rcParams['axes.grid'] = False
 
 # content_path = tf.keras.utils.get_file('YellowLabradorLooking_new.jpg', 'some (2).jpg')
 # style_path = tf.keras.utils.get_file('kandinsky5.jpg','dolphin.jpg')
@@ -52,10 +48,6 @@ def imshow(image, title=None):
     plt.imshow(image)
     if title:
         plt.title(title)
-
-# content_image = load_img(content_path)
-# style_image = load_img(style_path)
-
 
 content_image = load_img('/content/some (2).jpg')
 style_image = load_img('/content/dolphin.jpg')
@@ -179,3 +171,4 @@ train_step(image)
 train_step(image)
 tensor_to_image(image)
 
+tensor_to_image(image).save('StylizedImage.png')

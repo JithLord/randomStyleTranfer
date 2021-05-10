@@ -49,8 +49,8 @@ def imshow(image, title=None):
     if title:
         plt.title(title)
 
-content_image = load_img('/content/some (2).jpg')
-style_image = load_img('/content/dolphin.jpg')
+content_image = load_img('contentImage.jpg')
+style_image = load_img('styleImage.jpg')
 
 plt.subplot(2, 2, 1)
 imshow(content_image, 'Content Image')

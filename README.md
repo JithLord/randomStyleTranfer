@@ -9,5 +9,5 @@ Perform style tranfer on random images
 ```
 
 ## Need to add these functionalities
-[ ] - Needs to download Image contentImage.jpg and styleImage.jpg
-[ ] - 
+[] - Needs to download Image contentImage.jpg and styleImage.jpg
+[x] - 

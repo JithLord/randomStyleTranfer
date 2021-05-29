@@ -95,4 +95,4 @@ def search(keywords, max_results=None):
             exit(0);
 
         requestUrl = url + data["next"];
-search(sys.argv[1]);
+#search(sys.argv[1]);

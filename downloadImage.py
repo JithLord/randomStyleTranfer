@@ -11,7 +11,8 @@ logging.basicConfig(level=logging.DEBUG);
 logger = logging.getLogger(__name__)
 global imgNumb
 imgNumb=random.randint(1,10000)
-def search(keywords, max_results=None):
+
+def search(keywords, fileName, max_results=1):
     url = 'https://duckduckgo.com/';
     params = {
     	'q': keywords
@@ -55,44 +56,44 @@ def search(keywords, max_results=None):
     requestUrl = url + "i.js";
 
     logger.debug("Hitting Url : %s", requestUrl);
+    
+    while True:
+        try:
+            res = requests.get(requestUrl, headers=headers, params=params);
+            data = json.loads(res.text);
+            break;
+        except ValueError as e:
+            logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl);
+            time.sleep(5);
+            continue;
 
-    for i in range(6):
-        while True:
-            try:
-                res = requests.get(requestUrl, headers=headers, params=params);
-                data = json.loads(res.text);
-                break;
-            except ValueError as e:
-                logger.debug("Hitting Url Failure - Sleep and Retry: %s", requestUrl);
-                time.sleep(5);
-                continue;
-
-        logger.debug("Hitting Url Success : %s", requestUrl);
-
-
-        count=100*i
-        for obj in data["results"]:
-            print("Width {0}, Height {1}".format(obj["width"], obj["height"]));
-            print("Thumbnail {0}".format(obj["thumbnail"]));
-            print("Url {0}".format(obj["url"]));
-            print("Title {0}".format(obj["title"].encode('utf-8')));
-            print("Image {0}".format(obj["image"]));
-            print("__________");
-            count+=1
-            try:
-                r = requests.get(obj["image"])
-                filename="img"+str(sys.argv[1])+str(''.join(e for e in str(datetime.datetime.now()) if e.isalnum()))+".jpg"
-                f=open(filename, 'wb')
-                f.write(r.content)
-                f.close()
-            except:
-                continue
+    logger.debug("Hitting Url Success : %s", requestUrl);
 
 
+    count=100*i
 
-        if "next" not in data:
-            logger.debug("No Next Page - Exiting");
-            exit(0);
+    for obj in data["results"]:
+        print("Width {0}, Height {1}".format(obj["width"], obj["height"]));
+        print("Thumbnail {0}".format(obj["thumbnail"]));
+        print("Url {0}".format(obj["url"]));
+        print("Title {0}".format(obj["title"].encode('utf-8')));
+        print("Image {0}".format(obj["image"]));
+        print("__________");
+        count+=1
+        try:
+            r = requests.get(obj["image"])
+            filename=fileName+".jpg"
+            f=open(filename, 'wb')
+            f.write(r.content)
+            f.close()
+        except:
+            continue
+
+
+
+    if "next" not in data:
+        logger.debug("No Next Page - Exiting");
+        exit(0);
 
         requestUrl = url + data["next"];
 #search(sys.argv[1]);
